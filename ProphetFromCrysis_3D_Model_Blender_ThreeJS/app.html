@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./resources/node_modules/three/build/three.module.js",
+            "GLTFLoader": "./resources/node_modules/three/examples/jsm/loaders/GLTFLoader.js"
+        }
+    }
+    </script>
+    <title>Displaying a 3D Blender model of Prophet from Crysis</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="module">
+        import * as THREE from 'three';
+        console.log(THREE);
+        import * as GLTFLoader from 'GLTFLoader';
+        console.log(GLTFLoader);
+        const renderer = new THREE.WebGLRenderer();
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+        const scene = new THREE.Scene();
+        let mesh;
+        let light;
+
+        function init() {
+            scene.background = new THREE.Color('black');
+            camera.position.set(0, 10, 20);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+        }
+
+        function setLight() {
+            light = new THREE.AmbientLight(0xffffff); // soft white light
+            scene.add(light);
+        }
+
+        function loadGLTF() {
+            let gltfLoader = new GLTFLoader.GLTFLoader();
+
+            gltfLoader.load('./blender_model/prophet.gltf', (gltf) => {
+                mesh = gltf.scene;
+                mesh.scale.set(0.5, 0.45, 0.5);
+                scene.add(mesh);
+                mesh.position.x = 0;
+                mesh.position.y = 10;
+                mesh.position.z = 15;
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (mesh && mesh.rotation) {
+                mesh.rotation.y -= 0.005;
+            }
+            renderer.render(scene, camera);
+        }
+
+        init();
+        setLight();
+        loadGLTF();
+        animate();
+    </script>
+</body>
+
+</html>
