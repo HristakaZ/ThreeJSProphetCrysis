@@ -9,5 +9,5 @@ Step 5: Write npm install. - Here, or on the next step, if you're getting errors
 Step 6: Write npm start.\
 You should get a message saying: "Available on: http://localhost:8000". \
 Step 7: Open Google Chrome. \ 
-Step 8: Navigate to http://localhost:8000. \
+Step 8: Navigate to http://localhost:8000.\
 Step 9: Click on the app.html file through the browser.
